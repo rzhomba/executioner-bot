@@ -25,9 +25,15 @@
       "error",
       "always"
     ],
-    "prefer-const": ["error", {
-      "destructuring": "any",
-      "ignoreReadBeforeAssign": false
-    }]
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": false
+      }
+    ],
+    "no-trailing-spaces": [
+      "error"
+    ]
   }
 }
