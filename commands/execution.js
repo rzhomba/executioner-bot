@@ -61,7 +61,7 @@ module.exports = {
             const hasRole = admin.roles.cache.has(roleId);
 
             if (!hasRole) {
-                interaction.reply({ content: 'You don\'t have enough permissions to use this.' });
+                interaction.reply({ content: 'You don\'t have enough permissions to use this.', ephemeral: true });
                 return;
             }
         }
@@ -70,13 +70,13 @@ module.exports = {
             const target = interaction.guild.members.cache.get(interaction.options.getUser('target').id);
 
             if (!target.voice.channel) {
-                interaction.reply({ content: 'This user isn\'t connected to any voice channel' });
+                interaction.reply({ content: 'This user isn\'t connected to any voice channel', ephemeral: true });
                 return;
             }
 
             const check = scheduler.add(target.id, { user: target, muted: false, dateStarted: new Date() });
             if (!check) {
-                interaction.reply({ content: 'This user is already under execution.' });
+                interaction.reply({ content: 'This user is already under execution.', ephemeral: true });
                 return;
             }
 
@@ -87,7 +87,7 @@ module.exports = {
 
             const check = await scheduler.clear(target.id, { user: target, manual: true });
             if (!check) {
-                interaction.reply({ content: 'This user isn\'t under execution.' });
+                interaction.reply({ content: 'This user isn\'t under execution.', ephemeral: true });
                 return;
             }
 
@@ -96,7 +96,7 @@ module.exports = {
         } else if (subcommand === 'stopall') {
             const count = await scheduler.clearAll({ manual: true });
             if (count === 0) {
-                interaction.reply({ content: 'There are no users under execution currently.' });
+                interaction.reply({ content: 'There are no users under execution currently.', ephemeral: true });
                 return;
             }
 
@@ -107,7 +107,7 @@ module.exports = {
 
             const list = scheduler.targets;
             if (list.length === 0) {
-                interaction.reply({ content: 'There are no users under execution.' });
+                interaction.reply({ content: 'There are no users under execution.', ephemeral: true });
                 return;
             }
 
