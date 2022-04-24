@@ -3,5 +3,9 @@
     "totalDuration": 30,
     "muteDuration": 3,
     "muteTimeout": 1
+  },
+  "deportation": {
+    "moveCount": 10,
+    "moveTimeout": 0.75
   }
 }
