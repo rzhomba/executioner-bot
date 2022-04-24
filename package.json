@@ -2,7 +2,7 @@
   "name": "executioner-bot",
   "version": "0.1",
   "description": "",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
     "deploy-commands": "node deploy-commands.js",
     "start": "node bot.js"
