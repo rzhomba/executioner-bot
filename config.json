@@ -1,6 +1,5 @@
 {
-  "checkRole": "true",
-  "duration": {
+  "execution": {
     "totalDuration": 30,
     "muteDuration": 3,
     "muteTimeout": 1

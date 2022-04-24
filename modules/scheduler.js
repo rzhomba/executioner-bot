@@ -29,46 +29,45 @@ class Scheduler {
         return this._targets.size === 0 && this._schedule.size === 0;
     };
 
-    add = async (targetId, data) => {
-        if (this.has(targetId)) return false;
+    add = async (id, data) => {
+        if (this.has(id)) {
+            return false;
+        }
 
-        const target = {
-            targetId: targetId, data: data
-        };
         const schedule = [];
 
         for (const interval of this.intervals) {
             const timeoutId = setTimeout(async () => {
-                await this.handler(target);
+                await this.handler(data);
             }, interval);
 
             schedule.push(timeoutId);
         }
 
         const timeoutId = setTimeout(async () => {
-            await this.clear(targetId);
+            await this.clear(id, data);
         }, this.intervals[this.intervals.length - 1]);
 
         schedule.push(timeoutId);
 
-        this._schedule.set(targetId, schedule);
-        this._targets.set(targetId, target);
+        this._schedule.set(id, schedule);
+        this._targets.set(id, data);
 
         return true;
     };
 
-    clear = async (targetId, data) => {
-        if (!this.has(targetId)) {
+    clear = async (id, data) => {
+        if (!this.has(id)) {
             return false;
         }
 
-        const target = this._targets.get(targetId);
+        const target = this._targets.get(id);
 
         if (this.callback) {
-            await this.callback(target, data);
+            await this.callback({ ...target, ...data });
         }
 
-        for (const timeoutId of this._schedule.get(targetId).values()) {
+        for (const timeoutId of this._schedule.get(id).values()) {
             clearTimeout(timeoutId);
         }
 
@@ -83,12 +82,14 @@ class Scheduler {
 
         if (this.callback) {
             for (const target of this._targets.values()) {
-                await this.callback(target, data);
+                await this.callback({ ...target, ...data });
             }
         }
 
-        for (const timeoutId of this._schedule.values()) {
-            clearTimeout(timeoutId);
+        for (const schedule of this._schedule.values()) {
+            for (const timeoutId of schedule) {
+                clearTimeout(timeoutId);
+            }
         }
 
         this._targets.clear();

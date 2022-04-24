@@ -9,7 +9,7 @@ You may want to configure this bot. If so, then edit the `config.json` file. Def
 ````json
 {
   "checkRole": "true",
-  "duration": {
+  "execution": {
     "totalDuration": 30,
     "muteDuration": 3,
     "muteTimeout": 1

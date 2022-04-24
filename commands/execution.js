@@ -1,33 +1,34 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Scheduler } = require('../modules/scheduler');
-const { duration } = require('../config.json');
+const { execution } = require('../config.json');
 const { logger } = require('../modules/logging');
 const { roleId } = require('../modules/env');
 
 const intervals = [0];
 let counter = 0, muted = false;
 do {
-    counter += muted ? duration.muteTimeout : duration.muteDuration;
+    counter += muted ? execution.muteTimeout : execution.muteDuration;
     muted = !muted;
 
     intervals.push(counter * 1000);
-} while (counter <= duration.totalDuration);
+} while (counter <= execution.totalDuration);
 
-const scheduler = new Scheduler(intervals, async (target) => {
-    const { user, muted } = target.data;
+const scheduler = new Scheduler(intervals, async (data) => {
+    const { user, muted } = data;
     if (user.voice.channel) {
         await user.voice.setMute(!muted);
     }
 
-    target.data.muted = !muted;
-}, async (target) => {
-    const { user, manual } = target.data;
+    data.muted = !muted;
+}, async (data) => {
+    const { user, manual } = data;
     if (user.voice.channel) {
+        console.log(user.user.tag);
         await user.voice.setMute(false);
     }
 
-    if (manual) {
-        logger.info(`Execution on user ${target.data.user.tag} ended.`);
+    if (!manual) {
+        logger.info(`Execution on user ${data.user.user.tag} ended.`);
     }
 });
 
@@ -115,7 +116,7 @@ module.exports = {
             let response = '';
             for (const elem of list) {
                 const { user, dateStarted } = elem.data;
-                const timeLeft = duration.totalDuration - (new Date() - dateStarted) / 1000;
+                const timeLeft = execution.totalDuration - (new Date() - dateStarted) / 1000;
                 response += `${counter++}. ${user.toString()} - ${timeLeft.toFixed(1)}s left\n`;
             }
 
