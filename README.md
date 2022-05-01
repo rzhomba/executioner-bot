@@ -1,6 +1,7 @@
 # Executioner Bot
 
 A simple bot designated specially for doing little, fun and harmless cyberbullying on my discord server :)
+*P.S. No one was offended.*
 
 ## Configuration
 
@@ -8,11 +9,14 @@ You may want to configure this bot. If so, then edit the `config.json` file. Def
 
 ````json
 {
-  "checkRole": "true",
   "execution": {
     "totalDuration": 30,
     "muteDuration": 3,
     "muteTimeout": 1
+  },
+  "deportation": {
+    "moveCount": 10,
+    "moveTimeout": 0.75
   }
 }
 ````
@@ -23,11 +27,12 @@ Create a `.env` file:
 TOKEN=[BOT_TOKEN_HERE]
 CLIENT_ID=[CLIENT_ID_HERE]
 GUILD_ID=[GUILD_ID_HERE]
+# role id (optional)
 ROLE_ID=[ROLE_ID_HERE]
 ````
 
-`ROLE_ID` contains the id of the role that has access to use this bot. Also, it may be null, if in `config.json` file
-`checkRole` will be `false`. In that case `ROLE_ID` variable in `.env` file may be null.
+`ROLE_ID` contains the id of the role that has access to use this bot. Also, it may be not specified, if you don't want
+to restrict usage of the bot to a certain role.
 
 ## Starting the Bot
 
@@ -36,7 +41,8 @@ ROLE_ID=[ROLE_ID_HERE]
 * [Node.js](https://nodejs.org/) 16.9.0 or newer
 * [Discord](https://discord.com/)
 
-0. Go to [Discord application page](https://discord.com/developers/applications) and create a bot
+0. Go to [Discord application page](https://discord.com/developers/applications) and create a bot, then invite it to
+   your server
 1. Clone this repository locally
 2. Run `npm install`
 3. Create the `.env` file and configure the bot
@@ -45,12 +51,14 @@ ROLE_ID=[ROLE_ID_HERE]
 
 ## Commands
 
-| Name                      | Description                             |
-|---------------------------|:----------------------------------------|
-| `/execution start <user>` | Starts the execution on specified user  |
-| `/execution stop <user>`  | Stops the execution                     |
-| `/execution stopall`      | Stops execution on all users            |
-| `/execution list`         | Displays all users under punishment     |
+| Name                        | Description                                                    |
+|-----------------------------|:---------------------------------------------------------------|
+| `/execution start <user>`   | Starts muting and unmuting specified user for a period of time |
+| `/execution stop <user>`    | Stops the execution on specified user                          |
+| `/execution stopall`        | Stops the execution on all users                               |
+| `/execution list`           | Displays all users under execution                             |
+| `/deportation start <user>` | Starts moving specified users between server's voice channels  |
+| `/deportation clear`        | Stops the deportation of all users                             |
 
 ## License
 
