@@ -5,7 +5,20 @@ A simple bot designated specially for doing little, fun and harmless cyberbullyi
 
 ## Configuration
 
-You may want to configure this bot. If so, then edit the `config.json` file. Default configuration:
+Create a `.env` file:
+
+````dotenv
+TOKEN=[BOT_TOKEN_HERE]
+CLIENT_ID=[CLIENT_ID_HERE]
+GUILD_ID=[GUILD_ID_HERE]
+# role id (optional)
+ROLE_ID=[ROLE_ID_HERE]
+````
+
+`ROLE_ID` contains the id of the role that has access to use this bot. Also, it may be not specified, if you don't want
+to restrict usage of the bot to a certain role.
+
+If you want to configure this bot, edit the `config.json` file. Default configuration:
 
 ````json
 {
@@ -21,19 +34,6 @@ You may want to configure this bot. If so, then edit the `config.json` file. Def
 }
 ````
 
-Create a `.env` file:
-
-````dotenv
-TOKEN=[BOT_TOKEN_HERE]
-CLIENT_ID=[CLIENT_ID_HERE]
-GUILD_ID=[GUILD_ID_HERE]
-# role id (optional)
-ROLE_ID=[ROLE_ID_HERE]
-````
-
-`ROLE_ID` contains the id of the role that has access to use this bot. Also, it may be not specified, if you don't want
-to restrict usage of the bot to a certain role.
-
 ## Starting the Bot
 
 ### Requirements
@@ -47,7 +47,7 @@ to restrict usage of the bot to a certain role.
 2. Run `npm install`
 3. Create the `.env` file and configure the bot
 4. Run `node deploy-commands.js` (only once when deploying)
-5. Run `node index.js`
+5. Run `node bot.js`
 
 ## Commands
 
