@@ -1,14 +1,20 @@
 const dotenv = require('dotenv');
 
-const config = dotenv.config();
+let env;
 
-if (config.error) {
-    throw config.error;
+if (process.env.NODE_ENV === 'production') {
+    env = process.env;
+} else {
+    const config = dotenv.config();
+    if (config.error) {
+        throw config.error;
+    }
+    env = config.parsed;
 }
 
 module.exports = {
-    token: config.parsed.TOKEN,
-    clientId: config.parsed.CLIENT_ID,
-    guildId: config.parsed.GUILD_ID,
-    roleId: config.parsed.ROLE_ID,
+    token: env.TOKEN,
+    clientId: env.CLIENT_ID,
+    guildId: env.GUILD_ID,
+    roleId: env.ROLE_ID,
 };
