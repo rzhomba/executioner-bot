@@ -22,6 +22,9 @@ If you want to configure this bot, edit the `config.json` file. Default configur
 
 ````json
 {
+   "logs": {
+      "toFile": false
+   },
   "execution": {
     "totalDuration": 30,
     "muteDuration": 3,
@@ -44,10 +47,13 @@ If you want to configure this bot, edit the `config.json` file. Default configur
 0. Go to [Discord application page](https://discord.com/developers/applications) and create a bot, then invite it to
    your server
 1. Clone this repository locally
-2. Run `npm install`
-3. Create the `.env` file and configure the bot
-4. Run `node deploy-commands.js` (only once when deploying)
-5. Run `node bot.js`
+2. Create the `.env` file and configure the bot
+3. Start with Docker
+   1. Run `docker compose up`
+4. Or without
+   1. Run `npm install`
+   2. Run `node deploy-commands.js` (only once when deploying)
+   3. Run `node bot.js`
 
 ## Commands
 
