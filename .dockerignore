@@ -1,0 +1,12 @@
+logs
+node_modules
+
+.env
+
+.gitignore
+
+Dockerfile
+.dockerignore
+
+LICENSE
+README.md

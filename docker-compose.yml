@@ -1,0 +1,14 @@
+services:
+  executioner:
+    container_name: executioner
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: executioner
+    entrypoint: [ "/bin/sh","-c" ]
+    command:
+      - |
+        npm run deploy-commands
+        npm run start
+    env_file:
+      - .env
