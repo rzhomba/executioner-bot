@@ -1,4 +1,7 @@
 {
+  "logs": {
+    "toFile": false
+  },
   "execution": {
     "totalDuration": 30,
     "muteDuration": 3,

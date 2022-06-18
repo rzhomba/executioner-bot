@@ -1,4 +1,5 @@
 const { createLogger, format, transports } = require('winston');
+const { logs } = require('../config.json');
 require('winston-daily-rotate-file');
 
 const logger = createLogger({
@@ -10,13 +11,7 @@ const logger = createLogger({
         format.errors({ stack: true }),
         format.splat(),
         format.json()
-    ),
-    transports: [
-        new transports.DailyRotateFile({
-            filename: './logs/log',
-            datePattern: 'DD-MM-yyyy'
-        })
-    ]
+    )
 });
 
 logger.add(new transports.Console({
@@ -25,6 +20,13 @@ logger.add(new transports.Console({
         format.simple()
     )
 }));
+
+if (logs.toFile) {
+    logger.add(new transports.DailyRotateFile({
+        filename: './logs/log',
+        datePattern: 'DD-MM-yyyy'
+    }));
+}
 
 module.exports = {
     logger: logger
